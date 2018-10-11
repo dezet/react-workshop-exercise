@@ -1,22 +1,45 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './App.css'
 
-class Form extends Component {
+// class Form extends Component {
+//
+//   constructor (props) {
+//     super(props)
+//     console.log(props)
+//   }
+//
+//   render () {
+//     return (
+//
+//     )
+//   }
+// }
 
-  constructor (props) {
-    super(props)
-  }
+let Form = (props) => (
+  <form className="form-inline" onSubmit={props.handleSubmit}>
+    <div className="form-group">
+      <label htmlFor="quantity">Ilość</label>
+      <input type="number" className="form-control" name="quantity"
+             id="quantity" value={props.state.quantity}
+             onChange={props.handleChange}/>
+    </div>
+    <div className="form-group">
+      <label htmlFor="type">Example select</label>
+      <select className="form-control" id="type" name="type"
+              value={props.state.type}
+              onChange={props.handleChange}>
+        {props.types.map(
+          (item, idx) => <option key={idx}
+                                 value={item.value}> {item.label} </option>)}
 
-  render () {
-    return (
-      <form>
-        <label>
-          Liczba:
-          <input type="number"> </input>
-        </label>
-      </form>
-    )
-  }
-}
+      </select>
+    </div>
+    <button type="submit" className="btn btn-primary"
+            disabled={props.state.submitting}>
+      {!props.state.submitting && 'Wyślij'}
+      {props.state.submitting && 'Ładowanie'}
+    </button>
+  </form>
+)
 
-export default Form
+export { Form }
